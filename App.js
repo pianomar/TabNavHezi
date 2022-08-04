@@ -1,13 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import AppNavigator from './navigation/AppNavigator';
 export default function App() {
+  
+  setupFonts();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppNavigator />
   );
+}
+
+function setupFonts() {
+  const [loaded] = useFonts({
+    Quicksand: require('./assets/fonts/Quicksand-Regular.ttf'),
+    QuicksandBold: require('./assets/fonts/Quicksand-Bold.ttf'),
+  });
+
+  if (!loaded) return <AppLoading />
 }
 
 const styles = StyleSheet.create({
