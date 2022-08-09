@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryProductScreen from '../screens/CategoryProductScreen';
@@ -9,8 +8,8 @@ import { Platform } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = () => (
-    <NavigationContainer>
+const AppNavigator = () => {
+    return (
         <Stack.Navigator initialRouteName={CATEGORIES_SCREEN} screenOptions={{
             headerStyle: {
                 backgroundColor: Platform.OS === 'android' ? COLORS.primary : '',
@@ -18,13 +17,15 @@ const AppNavigator = () => (
             headerTintColor: Platform.OS === 'android' ? COLORS.white : COLORS.primary,
             headerTitleStyle: { fontWeight: 'bold' }
         }}>
-            <Stack.Screen name={CATEGORIES_SCREEN} component={CategoriesScreen} options={{title: "Home"}}/>
-            <Stack.Screen name={PRODUCTS_SCREEN} component={CategoryProductScreen} options={({route}) => ({
-                titel: route.params.name
-            })}/>
-            <Stack.Screen name={DETAILS_SCREEN} component={ProductDetailScreen} />
+            <Stack.Screen name={CATEGORIES_SCREEN} component={CategoriesScreen} options={{ title: "Home" }} />
+            <Stack.Screen name={PRODUCTS_SCREEN} component={CategoryProductScreen} options={({ route }) => ({
+                title: route.params.name
+            })} />
+            <Stack.Screen name={DETAILS_SCREEN} component={ProductDetailScreen} options={(route) => ({
+                title: "Details"
+            })} />
         </Stack.Navigator>
-    </NavigationContainer>
-)
+    )
+}
 
 export default AppNavigator;
